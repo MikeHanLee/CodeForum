@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
+    <!--<TextView
         android:id="@+id/text_personal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -15,22 +15,21 @@
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent" />-->
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/login_register"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:padding="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text_personal">
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/person_icon"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
             android:baseline="50dp"
             android:src="@mipmap/ic_launcher"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -40,10 +39,9 @@
             android:id="@+id/person_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
             android:text="@string/login_register"
-            android:textSize="20sp"
+            android:padding="15dp"
+            android:textSize="22sp"
             app:layout_constraintBaseline_toBaselineOf="@id/person_icon"
             app:layout_constraintLeft_toRightOf="@id/person_icon"
             app:layout_constraintTop_toTopOf="parent" />
@@ -54,36 +52,39 @@
         android:id="@+id/my_data"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
+        android:textAlignment="viewStart"
+        android:gravity="start"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="5dp"
         android:text="@string/my_data"
-        android:textSize="20dp"
+        android:padding="15dp"
+        android:textSize="22sp"
         app:layout_constraintTop_toBottomOf="@id/login_register" />
 
     <Button
         android:id="@+id/my_blog"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="8dp"
+        android:textAlignment="viewStart"
+        android:gravity="start"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
         android:text="@string/my_blog"
-        android:textSize="20dp"
+        android:padding="15dp"
+        android:textSize="22sp"
         app:layout_constraintTop_toBottomOf="@id/my_data" />
 
     <Button
         android:id="@+id/return_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="10dp"
+        android:layout_marginTop="5dp"
         android:layout_marginBottom="8dp"
         android:text="@string/return_login"
-        android:textSize="20dp"
+        android:textAlignment="viewStart"
+        android:gravity="start"
+        android:padding="15dp"
+        android:textSize="22sp"
         app:layout_constraintTop_toBottomOf="@id/my_blog" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

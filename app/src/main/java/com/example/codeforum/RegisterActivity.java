@@ -1,7 +1,7 @@
 package com.example.codeforum;
 
-import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Looper;
 import android.util.Log;
@@ -37,6 +37,8 @@ public class RegisterActivity extends AppCompatActivity {
         register_user_pwd = (EditText) findViewById(R.id.register_user_pwd);
         register_twice_user_pwd=(EditText)findViewById(R.id.register_twice_user_pwd);
         register_cellphone=(EditText)findViewById(R.id.register_cellphone);
+
+        //提交注册信息后执行注册处理
         register.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
                 new Thread(new Runnable() {
@@ -46,10 +48,14 @@ public class RegisterActivity extends AppCompatActivity {
                             int result=register();
                             if(result==1){
                                 Log.e("log_tag", "注册成功！");
-                                //Toast toast=null;
-                                Intent intent = new Intent();
-                                intent.setClass(RegisterActivity.this, LoginActivity.class);
-                                startActivity(intent);
+                                String user_name=register_user_name.getText().toString();
+                                String cellphone=register_cellphone.getText().toString();
+                                Uri data=null;
+                                Intent intent = new Intent(null,data);
+                                intent.putExtra("name",user_name);
+                                intent.putExtra("phone",cellphone);
+                                setResult(RESULT_OK,intent);
+                                finish();
                                 Looper.prepare();
                                 Toast.makeText(RegisterActivity.this, "注册成功！", Toast.LENGTH_SHORT).show();
                                 Looper.loop();
@@ -74,6 +80,8 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
     }
+
+    //注册
     private int register()throws IOException{
         String user_name=register_user_name.getText().toString();
         String user_pwd=register_user_pwd.getText().toString();
@@ -111,36 +119,33 @@ public class RegisterActivity extends AppCompatActivity {
             return returnResult;
         }
         String urlstr = "http://58.87.100.195/CodeForum/register.php";
-        //建立网络连接
         URL url = new URL(urlstr);
         HttpURLConnection http = (HttpURLConnection) url.openConnection();
-        //往网页写入POST数据，和网页POST方法类似，参数间用‘&’连接
         String params = "name=" + user_name + '&' + "pwd=" + user_pwd+ '&' + "phone=" + cellphone;
+        Log.e("error",params);
         http.setDoOutput(true);
         http.setDoInput(true);
         http.setRequestMethod("POST");
         http.connect();
 
         OutputStream out = http.getOutputStream();
-        out.write(params.getBytes());//post提交参数
+        out.write(params.getBytes());
         out.flush();
         out.close();
 
-        //读取网页返回的数据
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(http.getInputStream()));//获得输入流
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(http.getInputStream()));
         String line = "";
-        StringBuilder sb = new StringBuilder();//建立输入缓冲区
-        while (null != (line = bufferedReader.readLine())) {//结束会读入一个null值
-            sb.append(line);//写缓冲区
+        StringBuilder sb = new StringBuilder();
+        while (null != (line = bufferedReader.readLine())) {
+            sb.append(line);
         }
-        String result = sb.toString();//返回结果
-
+        Log.e("error",sb.toString());
+        String result = sb.toString();
+        Log.e("error",result);
         try {
-            /*获取服务器返回的JSON数据*/
             JSONObject jsonObject = new JSONObject(result);
-            returnResult = jsonObject.getInt("status");//获取JSON数据中status字段值
+            returnResult = jsonObject.getInt("status");
         } catch (Exception e) {
-            // TODO: handle exception
             Log.e("log_tag", "the Error parsing data " + e.toString());
         }
         return returnResult;

@@ -1,7 +1,10 @@
 package com.example.codeforum;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Looper;
 import android.util.Log;
@@ -26,17 +29,32 @@ public class LoginActivity extends AppCompatActivity {
     private Button register_login;
     private EditText et;
     private EditText pwd;
-
+    private static final int registerActivity=3;
     @Override
+    //读取注册页面返回的结果
+    public void onActivityResult(int requestCode, int resultCode, Intent data){
+        switch(requestCode){
+            case(registerActivity):{
+                if(resultCode== Activity.RESULT_OK){
+                    String name=data.getStringExtra("name");
+                    String phone=data.getStringExtra("phone");
+                    returnMainActivity(name);
+                    setUserInfo(name,phone);
+                }
+            }
+        }
+    }
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
         et = (EditText) findViewById(R.id.user_name);
         pwd = (EditText) findViewById(R.id.user_pwd);
-
         login = findViewById(R.id.login);
         register_login=findViewById(R.id.register_login);
+
+        //提交登录信息后进行登录处理
         login.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
 
@@ -53,27 +71,22 @@ public class LoginActivity extends AppCompatActivity {
                                 name = jsonObject.getString("name");
                                 phone=jsonObject.getString("phone");
                             }catch(Exception e){
-                                // TODO: handle exception
                                 Log.e("log_tag", "the Error parsing data " + e.toString());
                             }
-                            //login()为向php服务器提交请求的函数，返回数据类型为int
                             if (result == 1) {
                                 Log.e("log_tag", "登陆成功！");
-                                //Toast toast=null;
-                                toMainActivity(name);
+                                returnMainActivity(name);
                                 setUserInfo(name,phone);
                                 Looper.prepare();
                                 Toast.makeText(LoginActivity.this, "登陆成功！", Toast.LENGTH_SHORT).show();
                                 Looper.loop();
                             } else if (result == -2) {
                                 Log.e("log_tag", "密码错误！");
-                                //Toast toast=null;
                                 Looper.prepare();
                                 Toast.makeText(LoginActivity.this, "密码错误！", Toast.LENGTH_SHORT).show();
                                 Looper.loop();
                             } else if (result == -1) {
                                 Log.e("log_tag", "不存在该用户！");
-                                //Toast toast=null;
                                 Looper.prepare();
                                 Toast.makeText(LoginActivity.this, "不存在该用户！", Toast.LENGTH_SHORT).show();
                                 Looper.loop();
@@ -85,26 +98,27 @@ public class LoginActivity extends AppCompatActivity {
                 }).start();
             }
         });
+
+        //注册跳转
         register_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();
                 intent.setClass(LoginActivity.this, RegisterActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent,registerActivity);
             }
         });
     }
 
+    //登录
     private JSONObject login() throws IOException {
         JSONObject jsonObject=new JSONObject();
         try {
             jsonObject.put("status",0);
         } catch (Exception e) {
-            // TODO: handle exception
             Log.e("log_tag", "the Error parsing data " + e.toString());
         }
 
-        /*获取用户名和密码*/
         String user_id = et.getText().toString();
         String input_pwd = pwd.getText().toString();
         if (user_id == null || user_id.length() <= 0) {
@@ -121,10 +135,8 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         String urlstr = "http://58.87.100.195/CodeForum/login.php";
-        //建立网络连接
         URL url = new URL(urlstr);
         HttpURLConnection http = (HttpURLConnection) url.openConnection();
-        //往网页写入POST数据，和网页POST方法类似，参数间用‘&’连接
         String params = "uid=" + user_id + '&' + "pwd=" + input_pwd;
         http.setDoOutput(true);
         http.setDoInput(true);
@@ -136,41 +148,37 @@ public class LoginActivity extends AppCompatActivity {
         out.flush();
         out.close();
 
-        //读取网页返回的数据
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(http.getInputStream()));//获得输入流
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(http.getInputStream()));
         String line = "";
-        StringBuilder sb = new StringBuilder();//建立输入缓冲区
-        while (null != (line = bufferedReader.readLine())) {//结束会读入一个null值
-            sb.append(line);//写缓冲区
+        StringBuilder sb = new StringBuilder();
+        while (null != (line = bufferedReader.readLine())) {
+            sb.append(line);
         }
-        String result = sb.toString();//返回结果
+        String result = sb.toString();
         try {
-            /*获取服务器返回的JSON数据*/
             jsonObject = new JSONObject(result);
         } catch (Exception e) {
-            // TODO: handle exception
             Log.e("log_tag", "the Error parsing data " + e.toString());
         }
 
         return jsonObject;
     }
 
-    private void toMainActivity(String name){
-        Intent intent = new Intent();
-        intent.setClass(LoginActivity.this, MainActivity.class);
-        Bundle bundle=new Bundle();
-        bundle.putString("name",name);
-        bundle.putInt("id",1);
-        intent.putExtras(bundle);
-        startActivity(intent);
+    //返回主页面
+    private void returnMainActivity(String name){
+        Uri data=null;
+        Intent result = new Intent(null,data);
+        result.putExtra("name",name);
+        setResult(RESULT_OK,result);
+        finish();
     }
+
+    //将登录信息存入SharedPreferences
     private void setUserInfo(String name,String phone){
-        SharedPreferences sharedPreferences =getSharedPreferences("user", 0);
+        SharedPreferences sharedPreferences =getSharedPreferences("user", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        //如果不能找到Editor接口。尝试使用 SharedPreferences.Editor
         editor.putString("user_id", name);
         editor.putString("user_phone",phone);
-        //我将用户信息保存到其中，你也可以保存登录状态
         editor.commit();
     }
 }
