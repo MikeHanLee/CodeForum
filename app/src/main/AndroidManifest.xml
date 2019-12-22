@@ -1,51 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.codeforum">
-
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <application
+        android:fullBackupContent="@xml/mybackup"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/ic_icon_256dp"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/ic_icon_256dp"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <service
-            android:name=".MyWebSocketClientService">
+            android:name=".service.MyWebSocketClientService">
 
         </service>
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:grantUriPermissions="true"
+            android:exported="false">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.VIEW" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name=".LoginActivity"
-            android:label="@string/login_name"
-            android:parentActivityName=".MainActivity">
+            android:name=".ui.login.LoginActivity"
+            android:label="@string/login_name">
 
         </activity>
         <activity
-            android:name=".RegisterActivity"
-            android:label="@string/register_name"
-            android:parentActivityName=".LoginActivity">
+            android:name=".ui.register.RegisterActivity"
+            android:label="@string/register_name">
 
         </activity>
         <activity
-            android:name=".FindFriendActivity"
-            android:label="@string/find_friend_name"
-            android:parentActivityName=".MainActivity">
+            android:name=".ui.findFriend.FindFriendActivity"
+            android:label="@string/find_friend_name">
 
         </activity>
         <activity
-            android:name=".CommunicationActivity">
+            android:name=".ui.communication.CommunicationActivity">
+
+        </activity>
+        <activity
+            android:name=".ui.blog.BlogActivity">
+
+        </activity>
+        <activity
+            android:name=".ui.blog.NewBlogActivity">
+
+        </activity>
+        <activity
+            android:name=".ui.blog.SortedBlogActivity">
+
+        </activity>
+        <activity
+            android:name=".ui.blog.CommentActivity">
+
+        </activity>
+        <activity
+            android:name=".ui.userIcon.UserIconActivity">
+
+        </activity>
+        <activity
+            android:name=".ui.setInfo.SetInfoActivity"
+            android:label="@string/set_info_name">
 
         </activity>
     </application>

@@ -1,6 +1,8 @@
 package com.example.codeforum.ui.home;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,8 +15,9 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.codeforum.R;
-import com.example.codeforum.myadpater.GridIconAdapter;
-import com.example.codeforum.myadpater.Icon;
+import com.example.codeforum.component.myadpater.GridIconAdapter;
+import com.example.codeforum.component.myadpater.Icon;
+import com.example.codeforum.ui.blog.SortedBlogActivity;
 
 import java.util.ArrayList;
 
@@ -24,6 +27,8 @@ public class HomeFragment extends Fragment {
     private GridView grid_class;
     private BaseAdapter mAdapter = null;
     private ArrayList<Icon> mData = null;
+    private static final int sortedBlogActivity = 9;
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         homeViewModel =
@@ -38,17 +43,19 @@ public class HomeFragment extends Fragment {
         });*/
         grid_class = (GridView) root.findViewById(R.id.grid_class);
 
-        mData = new ArrayList<com.example.codeforum.myadpater.Icon>();
-        mData.add(new com.example.codeforum.myadpater.Icon(R.mipmap.ic_launcher, "图标1"));
-        mData.add(new com.example.codeforum.myadpater.Icon(R.mipmap.ic_launcher, "图标2"));
-        mData.add(new com.example.codeforum.myadpater.Icon(R.mipmap.ic_launcher, "图标3"));
-        mData.add(new com.example.codeforum.myadpater.Icon(R.mipmap.ic_launcher, "图标4"));
-        mData.add(new com.example.codeforum.myadpater.Icon(R.mipmap.ic_launcher, "图标5"));
-        mData.add(new com.example.codeforum.myadpater.Icon(R.mipmap.ic_launcher, "图标6"));
-        mData.add(new com.example.codeforum.myadpater.Icon(R.mipmap.ic_launcher, "图标7"));
+        mData = new ArrayList<com.example.codeforum.component.myadpater.Icon>();
+        mData.add(new com.example.codeforum.component.myadpater.Icon(R.drawable.ic_java_primary_64dp, "Java"));
+        mData.add(new com.example.codeforum.component.myadpater.Icon(R.drawable.ic_python_primary_64dp, "Python"));
+        mData.add(new com.example.codeforum.component.myadpater.Icon(R.drawable.ic_c_primary_64dp, "C语言"));
+        mData.add(new com.example.codeforum.component.myadpater.Icon(R.drawable.ic_javascript_primary_64dp, "JS"));
+        mData.add(new com.example.codeforum.component.myadpater.Icon(R.drawable.ic_web_primary_64dp, "Web"));
+        mData.add(new com.example.codeforum.component.myadpater.Icon(R.drawable.ic_php_primary_64dp, "php"));
+        mData.add(new com.example.codeforum.component.myadpater.Icon(R.drawable.ic_android_primary_64dp, "Android"));
+        mData.add(new com.example.codeforum.component.myadpater.Icon(R.drawable.ic_linux_primary_64dp, "Linux"));
+        mData.add(new com.example.codeforum.component.myadpater.Icon(R.drawable.ic_ios_primary_64dp, "iOS"));
 
         //设置九宫格导航栏样式
-        mAdapter = new GridIconAdapter<com.example.codeforum.myadpater.Icon>(mData, R.layout.grid_class_icon) {
+        mAdapter = new GridIconAdapter<com.example.codeforum.component.myadpater.Icon>(mData, R.layout.grid_class_icon) {
             @Override
             public void bindView(ViewHolder holder, Icon obj) {
                 holder.setImageResource(R.id.img_icon, obj.getiId());
@@ -62,7 +69,10 @@ public class HomeFragment extends Fragment {
         grid_class.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+                Intent intent = new Intent();
+                intent.setClass(getActivity(), SortedBlogActivity.class);
+                intent.putExtra("title_name", mData.get(position).getiName());
+                startActivityForResult(intent, sortedBlogActivity);
             }
         });
         return root;

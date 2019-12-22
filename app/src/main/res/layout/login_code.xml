@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="30dp"
+    android:paddingBottom="30dp"
+    android:background="@drawable/login_viewpager"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <EditText
+        android:id="@+id/code_user_phone"
+        android:background="@drawable/edit_text"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="10dp"
+        android:textSize="20sp"
+        android:inputType="text"
+        android:hint="@string/please_input_cellphone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <EditText
+        android:id="@+id/code_sms"
+        android:background="@drawable/edit_text"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="10dp"
+        android:padding="10dp"
+        android:textSize="20sp"
+        android:inputType="text"
+        android:hint="@string/please_input_sms"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/code_user_phone"/>
+
+    <Button
+        android:id="@+id/code_send_sms"
+        android:background="@drawable/button_style"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:text="@string/send_sms"
+        android:textSize="18sp"
+        android:textColor="@drawable/button_font"
+        app:layout_constraintTop_toBottomOf="@id/code_user_phone"
+        app:layout_constraintEnd_toEndOf="@id/code_sms"
+        app:layout_constraintBaseline_toBaselineOf="@id/code_sms"/>
+
+    <Button
+        android:id="@+id/code_login"
+        android:background="@drawable/button_style"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:text="@string/login"
+        android:textSize="20sp"
+        android:textColor="@drawable/button_font"
+        app:layout_constraintTop_toBottomOf="@id/code_sms"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/code_register_login"/>
+
+    <Button
+        android:id="@+id/code_register_login"
+        android:background="@drawable/button_style"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:text="@string/register"
+        android:textSize="20sp"
+        android:textColor="@drawable/button_font"
+        app:layout_constraintTop_toBottomOf="@id/code_sms"
+        app:layout_constraintStart_toEndOf="@id/code_login"
+        app:layout_constraintEnd_toEndOf="parent"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

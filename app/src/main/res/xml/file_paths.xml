@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <paths>
+        <root-path name="root_path" path="."/>
+        <external-path path="Android/data/${applicationId}/"
+            name="camera_photos" />
+        <external-files-path   path="file/" name="camera_has_sdcard"/>
+        <files-path path=""     name="camera_no_sdcard"/>
+    </paths>
+</resources>

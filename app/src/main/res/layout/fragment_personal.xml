@@ -1,8 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:background="@drawable/progressbar"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:padding="150dp"
+        android:translationZ="2dp"
+        android:indeterminateTint="@color/colorPrimaryLight"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
     <!--<TextView
         android:id="@+id/text_personal"
@@ -19,6 +32,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/login_register"
+        android:background="@drawable/personal_scroll_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dp"
@@ -31,7 +45,7 @@
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:baseline="50dp"
-            android:src="@mipmap/ic_launcher"
+            android:src="@drawable/ic_default_personal_icon_256dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -48,43 +62,96 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <Button
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/my_data"
+        android:background="@drawable/personal_scroll_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAlignment="viewStart"
-        android:gravity="start"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="5dp"
-        android:text="@string/my_data"
-        android:padding="15dp"
-        android:textSize="22sp"
-        app:layout_constraintTop_toBottomOf="@id/login_register" />
+        android:padding="6dp"
+        app:layout_constraintTop_toBottomOf="@id/login_register">
 
-    <Button
+        <ImageView
+            android:id="@+id/my_data_icon"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:baseline="32dp"
+            android:padding="10dp"
+            android:src="@drawable/ic_personal_info_primary_32dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/my_data_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/my_data"
+            android:padding="10dp"
+            android:textSize="22sp"
+            app:layout_constraintBaseline_toBaselineOf="@id/my_data_icon"
+            app:layout_constraintLeft_toRightOf="@id/my_data_icon"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/my_blog"
+        android:background="@drawable/personal_scroll_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAlignment="viewStart"
-        android:gravity="start"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
-        android:text="@string/my_blog"
-        android:padding="15dp"
-        android:textSize="22sp"
-        app:layout_constraintTop_toBottomOf="@id/my_data" />
+        android:padding="6dp"
+        app:layout_constraintTop_toBottomOf="@id/my_data">
 
-    <Button
+        <ImageView
+            android:id="@+id/my_blog_icon"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:baseline="32dp"
+            android:padding="10dp"
+            android:src="@drawable/ic_personal_blog_primary_32dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/my_blog_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/my_blog"
+            android:padding="10dp"
+            android:textSize="22sp"
+            app:layout_constraintBaseline_toBaselineOf="@id/my_blog_icon"
+            app:layout_constraintLeft_toRightOf="@id/my_blog_icon"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/return_login"
+        android:background="@drawable/personal_scroll_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="8dp"
-        android:text="@string/return_login"
-        android:textAlignment="viewStart"
-        android:gravity="start"
-        android:padding="15dp"
-        android:textSize="22sp"
-        app:layout_constraintTop_toBottomOf="@id/my_blog" />
+        android:padding="6dp"
+        app:layout_constraintTop_toBottomOf="@id/my_blog">
 
+        <ImageView
+            android:id="@+id/return_login_icon"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:padding="10dp"
+            android:baseline="32dp"
+            android:src="@drawable/ic_personal_return_primary_32dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/return_login_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/return_login"
+            android:padding="10dp"
+            android:textSize="22sp"
+            app:layout_constraintBaseline_toBaselineOf="@id/return_login_icon"
+            app:layout_constraintLeft_toRightOf="@id/return_login_icon"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

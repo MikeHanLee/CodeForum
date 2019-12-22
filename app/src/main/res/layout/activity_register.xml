@@ -5,139 +5,192 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/register_text_user_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="200dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="5dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="5dp"
-        android:textSize="20sp"
-        android:text="@string/user_name"
-        app:layout_constraintEnd_toStartOf="@id/register_user_name"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/register_actionbar"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:background="@color/colorPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/register_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:layout_marginStart="20dp"
+            android:src="@drawable/ic_back_white_24dp"
+            android:contentDescription="@string/back"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_default="percent"
+            app:layout_constraintWidth_percent="0.15" />
+
+        <TextView
+            android:id="@+id/register_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:text="@string/register_name"
+            android:textAlignment="center"
+            android:textColor="@color/colorWhite"
+            android:textSize="20sp"
+            app:layout_constraintStart_toEndOf="@id/register_back"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <EditText
         android:id="@+id/register_user_name"
+        android:background="@drawable/edit_text"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
         android:layout_marginStart="5dp"
         android:layout_marginEnd="10dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="10dp"
+        android:padding="10dp"
         android:textSize="20sp"
         android:inputType="text"
         android:hint="@string/please_input_user_name"
-        app:layout_constraintStart_toEndOf="@id/register_text_user_name"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBaseline_toBaselineOf="@id/register_text_user_name"/>
-
-    <TextView
-        android:id="@+id/register_text_user_pwd"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="5dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="5dp"
-        android:textSize="20sp"
-        android:text="@string/user_pwd"
-        app:layout_constraintEnd_toStartOf="@id/register_user_pwd"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/register_text_user_name" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/register_actionbar"/>
 
     <EditText
         android:id="@+id/register_user_pwd"
+        android:background="@drawable/edit_text"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:layout_marginStart="5dp"
         android:layout_marginEnd="10dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="10dp"
+        android:padding="10dp"
         android:textSize="20sp"
         android:inputType="textPassword"
         android:hint="@string/please_input_user_pwd"
-        app:layout_constraintStart_toEndOf="@id/register_text_user_pwd"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/register_user_name"
-        app:layout_constraintBaseline_toBaselineOf="@id/register_text_user_pwd"/>
-
-    <TextView
-        android:id="@+id/register_text_twice_user_pwd"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="5dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="5dp"
-        android:textSize="20sp"
-        android:text="@string/user_pwd"
-        app:layout_constraintEnd_toStartOf="@id/register_twice_user_pwd"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/register_text_user_pwd" />
+        app:layout_constraintTop_toBottomOf="@id/register_user_name" />
+
+    <ImageView
+        android:id="@+id/register_hide"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="10dp"
+        android:src="@drawable/ic_show_hide_grey_24dp"
+        android:contentDescription="@string/show_hide"
+        app:layout_constraintEnd_toEndOf="@id/register_user_pwd"
+        app:layout_constraintTop_toTopOf="@id/register_user_pwd"
+        app:layout_constraintBottom_toBottomOf="@id/register_user_pwd"/>
+
+    <ImageView
+        android:id="@+id/register_show"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="10dp"
+        android:src="@drawable/ic_show_hide_blue_24dp"
+        android:contentDescription="@string/show_hide"
+        app:layout_constraintEnd_toEndOf="@id/register_user_pwd"
+        app:layout_constraintTop_toTopOf="@id/register_user_pwd"
+        app:layout_constraintBottom_toBottomOf="@id/register_user_pwd"/>
 
     <EditText
         android:id="@+id/register_twice_user_pwd"
+        android:background="@drawable/edit_text"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:layout_marginStart="5dp"
         android:layout_marginEnd="10dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="10dp"
+        android:padding="10dp"
         android:textSize="20sp"
         android:inputType="textPassword"
         android:hint="@string/please_input_twice_user_pwd"
-        app:layout_constraintStart_toEndOf="@id/register_text_twice_user_pwd"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/register_user_pwd"
-        app:layout_constraintBaseline_toBaselineOf="@id/register_text_twice_user_pwd"/>
-
-    <TextView
-        android:id="@+id/register_text_cellphone"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="5dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="5dp"
-        android:textSize="20sp"
-        android:text="@string/cellphone"
-        app:layout_constraintEnd_toStartOf="@id/register_twice_user_pwd"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/register_text_twice_user_pwd" />
+        app:layout_constraintTop_toBottomOf="@id/register_user_pwd" />
+
+    <ImageView
+        android:id="@+id/register_hide_twice"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="10dp"
+        android:src="@drawable/ic_show_hide_grey_24dp"
+        android:contentDescription="@string/show_hide"
+        app:layout_constraintEnd_toEndOf="@id/register_twice_user_pwd"
+        app:layout_constraintTop_toTopOf="@id/register_twice_user_pwd"
+        app:layout_constraintBottom_toBottomOf="@id/register_twice_user_pwd"/>
+
+    <ImageView
+        android:id="@+id/register_show_twice"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="10dp"
+        android:src="@drawable/ic_show_hide_blue_24dp"
+        android:contentDescription="@string/show_hide"
+        app:layout_constraintEnd_toEndOf="@id/register_twice_user_pwd"
+        app:layout_constraintTop_toTopOf="@id/register_twice_user_pwd"
+        app:layout_constraintBottom_toBottomOf="@id/register_twice_user_pwd"/>
 
     <EditText
         android:id="@+id/register_cellphone"
+        android:background="@drawable/edit_text"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:layout_marginStart="5dp"
         android:layout_marginEnd="10dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="10dp"
+        android:padding="10dp"
         android:textSize="20sp"
         android:inputType="text"
         android:hint="@string/please_input_cellphone"
-        app:layout_constraintStart_toEndOf="@id/register_text_cellphone"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/register_twice_user_pwd"
-        app:layout_constraintBaseline_toBaselineOf="@id/register_text_cellphone"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/register_twice_user_pwd" />
+
+    <EditText
+        android:id="@+id/register_sms"
+        android:background="@drawable/edit_text"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="10dp"
+        android:padding="10dp"
+        android:paddingRight="100dp"
+        android:textSize="20sp"
+        android:inputType="text"
+        android:hint="@string/please_input_sms"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/register_cellphone" />
+
+    <Button
+        android:id="@+id/register_send_sms"
+        android:background="@drawable/button_style"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:text="@string/send_sms"
+        android:textSize="18sp"
+        android:textColor="@drawable/button_font"
+        app:layout_constraintTop_toBottomOf="@id/register_cellphone"
+        app:layout_constraintEnd_toEndOf="@id/register_sms"
+        app:layout_constraintBaseline_toBaselineOf="@id/register_sms"/>
 
     <Button
         android:id="@+id/register"
-        android:layout_width="match_parent"
+        android:background="@drawable/button_style"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="30dp"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
         android:text="@string/register"
-        app:layout_constraintTop_toBottomOf="@id/register_text_cellphone"
+        android:textSize="20sp"
+        android:textColor="@drawable/button_font"
+        app:layout_constraintTop_toBottomOf="@id/register_sms"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 

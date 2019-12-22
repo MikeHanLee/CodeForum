@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/discover_view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingStart="5dp"
+    android:paddingEnd="5dp"
+    android:paddingTop="10dp"
+    android:paddingBottom="15dp"
+    android:background="@drawable/discover_scroll_view">
+
+    <ImageView
+        android:id="@+id/discover_view_icon"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:contentDescription="@string/icon"
+        android:padding="5dp"
+        android:src="@drawable/ic_default_personal_icon_256dp"
+        app:layout_constraintEnd_toStartOf="@id/discover_view_name"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/discover_view_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/icon_test"
+        android:textSize="16sp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/discover_view_phone"
+        app:layout_constraintStart_toEndOf="@id/discover_view_icon"/>
+
+    <TextView
+        android:id="@+id/discover_view_phone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/icon_test"
+        android:textSize="14sp"
+        app:layout_constraintStart_toEndOf="@id/discover_view_icon"
+        app:layout_constraintTop_toBottomOf="@id/discover_view_name" />
+
+    <TextView
+        android:id="@+id/discover_view_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/icon_test"
+        android:textSize="18sp"
+        android:textColor="@color/colorPrimary"
+        android:layout_marginTop="3dp"
+        android:layout_marginStart="15dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/discover_view_icon" />
+
+    <TextView
+        android:id="@+id/discover_view_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/icon_test"
+        android:textSize="18sp"
+        android:textColor="@color/colorBlack"
+        android:layout_marginBottom="3dp"
+        android:layout_marginStart="15dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/discover_view_title" />
+
+    <TextView
+        android:id="@+id/discover_view_classification"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/icon_test"
+        android:textSize="18sp"
+        android:textColor="@color/colorGrey"
+        android:layout_marginBottom="3dp"
+        android:layout_marginStart="15dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/discover_view_content" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

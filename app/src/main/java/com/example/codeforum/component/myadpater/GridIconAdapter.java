@@ -1,4 +1,4 @@
-package com.example.codeforum.myadpater;
+package com.example.codeforum.component.myadpater;
 
 import android.content.Context;
 import android.util.SparseArray;

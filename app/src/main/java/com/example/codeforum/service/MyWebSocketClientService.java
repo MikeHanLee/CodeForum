@@ -1,13 +1,11 @@
-package com.example.codeforum;
+package com.example.codeforum.service;
 
 import android.app.Service;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Binder;
 import android.os.IBinder;
-import android.os.Looper;
 import android.util.Log;
-import android.widget.Toast;
 
 import de.tavendo.autobahn.WebSocketConnection;
 import de.tavendo.autobahn.WebSocketException;
@@ -55,7 +53,6 @@ public class MyWebSocketClientService extends Service {
                 public void onOpen() {
                     SharedPreferences user = getSharedPreferences("user", 0);
                     mConnection.sendTextMessage(user.getString("user_phone","default"));
-                    Log.e("mConnection",user.getString("user_phone","default"));
                     Log.i(TAG, "WebSocket open");
                 }
 

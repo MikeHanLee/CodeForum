@@ -1,11 +1,26 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.mob.sdk'
+
+MobSDK {
+    appKey "2d5acb4fb47b7"
+    appSecret "86149e699a27551ddbc40f53ffb56f64"
+    SMSSDK {}
+}
 
 android {
+    signingConfigs {
+        codeforumsigning {
+            storeFile file('C:\\Users\\Administrator\\Desktop\\project\\android_key\\codeforum.jks')
+            storePassword 'android'
+            keyAlias = 'codeforumKey'
+            keyPassword 'android'
+        }
+    }
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
     defaultConfig {
         applicationId "com.example.codeforum"
-        minSdkVersion 15
+        minSdkVersion 17
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
@@ -29,6 +44,7 @@ dependencies {
     implementation 'androidx.navigation:navigation-ui:2.0.0'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.percentlayout:percentlayout:1.0.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'

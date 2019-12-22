@@ -9,7 +9,7 @@
         android:layout_width="64dp"
         android:layout_height="64dp"
         android:layout_centerInParent="true"
-        android:src="@mipmap/ic_launcher"
+        android:src="@drawable/ic_default_personal_icon_256dp"
         android:contentDescription="@string/icon"/>
 
     <TextView

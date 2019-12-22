@@ -1,4 +1,4 @@
-package com.example.codeforum.myadpater;
+package com.example.codeforum.component.myadpater;
 
 /**
  * Created by Jay on 2015/9/24 0024.

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
+    <!--边框-->
+    <item>
+        <shape>
+            <solid android:color="@color/colorPrimaryLight" />
+        </shape>
+    </item>
+    <!--背景-->
+    <item
+        android:top="0.5dp"
+        android:bottom="0.5dp">
+        <shape>
+            <solid android:color="@color/colorWhite" />
+        </shape>
+    </item>
+</layer-list>
