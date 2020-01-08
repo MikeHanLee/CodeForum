@@ -63,6 +63,25 @@ public class NotificationsFragment extends Fragment {
                                 @Override
                                 public void run() {
                                     try {
+                                        my_notifications.removeAllViewsInLayout();
+                                        getNotification(user_phone);
+                                    } catch (IOException e) {
+                                        Log.e("log_tag", "the Error parsing data " + e.toString());
+                                    }
+                                }
+                            }).start();
+                        }
+                    }
+                }else{
+                    SharedPreferences user = getActivity().getSharedPreferences("user", 0);
+                    if (user != null) {
+                        user_phone = user.getString("user_phone", "默认值");
+                        if (!user_phone.equals("默认值")) {
+                            new Thread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    try {
+                                        my_notifications.removeAllViewsInLayout();
                                         getNotification(user_phone);
                                     } catch (IOException e) {
                                         Log.e("log_tag", "the Error parsing data " + e.toString());

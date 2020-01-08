@@ -21,6 +21,8 @@ import androidx.annotation.RequiresApi;
 
 import com.example.codeforum.R;
 import com.example.codeforum.Utils;
+import com.example.codeforum.ui.findFriend.FindFriendActivity;
+import com.example.codeforum.ui.userInfo.UserInfoActivity;
 
 public class BlogActivity extends Activity {
     private ImageView blog_back;
@@ -43,7 +45,7 @@ public class BlogActivity extends Activity {
     private String classification;
     private String comment_name;
     private final static int commentActivity=10;
-
+    private final static int userInfoActivity=11;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,6 +96,16 @@ public class BlogActivity extends Activity {
         blog_progress.setMax(100);
         blog_title.setText(title);
         setWebView(blog_content);
+
+        blog_author_icon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(BlogActivity.this, UserInfoActivity.class);
+                intent.putExtra("phone", phone);
+                startActivityForResult(intent, userInfoActivity);
+            }
+        });
 
         blog_comment.setOnClickListener(new View.OnClickListener() {
             @Override

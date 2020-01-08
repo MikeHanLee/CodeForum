@@ -77,6 +77,10 @@
 
         </activity>
         <activity
+            android:name=".ui.userInfo.UserInfoActivity">
+
+        </activity>
+        <activity
             android:name=".ui.setInfo.SetInfoActivity"
             android:label="@string/set_info_name">
 

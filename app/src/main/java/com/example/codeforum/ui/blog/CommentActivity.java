@@ -20,6 +20,7 @@ import android.widget.LinearLayout;
 import com.example.codeforum.R;
 import com.example.codeforum.Utils;
 import com.example.codeforum.component.discoverView.DiscoverView;
+import com.example.codeforum.ui.userInfo.UserInfoActivity;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -39,6 +40,7 @@ public class CommentActivity extends Activity {
     private SharedPreferences user;
     private String new_comment_info;
     private CommentHandler handler = new CommentHandler();
+    private final static int userInfoActivity=11;
 
 
     @Override
@@ -225,7 +227,10 @@ public class CommentActivity extends Activity {
                                 discoverView[i].setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
-
+                                        Intent intent = new Intent();
+                                        intent.setClass(CommentActivity.this, UserInfoActivity.class);
+                                        intent.putExtra("phone", _phone);
+                                        startActivityForResult(intent, userInfoActivity);
                                     }
                                 });
                             }

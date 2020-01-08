@@ -32,6 +32,8 @@ import com.example.codeforum.service.MyWebSocketClientService;
 import com.example.codeforum.R;
 import com.example.codeforum.Utils;
 import com.example.codeforum.component.messageView.MessageView;
+import com.example.codeforum.ui.blog.BlogActivity;
+import com.example.codeforum.ui.userInfo.UserInfoActivity;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -62,6 +64,7 @@ public class CommunicationActivity extends Activity {
     private Bitmap _bitmap;
     String[] data = {"abc", "efg", "abc", "efg", "abc", "efg", "abc", "efg", "abc", "efg", "abc", "efg", "abc", "efg", "abc", "efg", "abc", "efg", "abc", "efg", "abc", "efg", "abc", "efg", "abc", "efg"};
     private LinearLayout message_list;
+    private final static int userInfoActivity=11;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -164,6 +167,7 @@ public class CommunicationActivity extends Activity {
         if (!association_name.equals("默认值")) {
             String urlstr = "http://58.87.100.195/CodeForum/getThisMessage.php";
             //建立网络连接
+            Log.d("associationName",association_name);
             String params = "association_name=" + association_name+"&"+"phone="+phone+"&"+"user_phone="+user_phone;
             InputStream is= Utils.connect(urlstr,params);
             //读取网页返回的数据
@@ -174,6 +178,7 @@ public class CommunicationActivity extends Activity {
                 sb.append(line);//写缓冲区
             }
             String result = sb.toString();//返回结果
+            Log.d("result",result);
             try {
                 JSONArray jsonArray = new JSONArray(result);
                 for(int i=0;i<jsonArray.length();i++){
@@ -227,8 +232,26 @@ public class CommunicationActivity extends Activity {
         messageView.setDirection(pos);
         if(pos.equals("left")){
             messageView.setImageResource(_bitmap);
+            messageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent();
+                    intent.setClass(CommunicationActivity.this, UserInfoActivity.class);
+                    intent.putExtra("phone", phone);
+                    startActivityForResult(intent, userInfoActivity);
+                }
+            });
         }else{
             messageView.setImageResource(user_bitmap);
+            messageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent();
+                    intent.setClass(CommunicationActivity.this, UserInfoActivity.class);
+                    intent.putExtra("phone", user_phone);
+                    startActivityForResult(intent, userInfoActivity);
+                }
+            });
         }
         message_list.addView(messageView);
         handler.post(new Runnable() {

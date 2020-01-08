@@ -1,5 +1,6 @@
 package com.example.codeforum.ui.findFriend;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -21,9 +22,13 @@ import android.widget.Toast;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.codeforum.MainActivity;
 import com.example.codeforum.R;
 import com.example.codeforum.Utils;
 import com.example.codeforum.component.notificationView.NotificationView;
+import com.example.codeforum.ui.blog.BlogActivity;
+import com.example.codeforum.ui.blog.SortedBlogActivity;
+import com.example.codeforum.ui.userInfo.UserInfoActivity;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -44,6 +49,25 @@ public class FindFriendActivity extends AppCompatActivity {
     private ProgressBar progressBar;
     private String user_phone;
     private Bitmap _bitmap;
+    private final static int userInfoActivity=11;
+
+    @Override
+    //获取登录界面返回结果
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case (userInfoActivity): {
+                if (resultCode == Activity.RESULT_OK) {
+                    Uri resultData = null;
+                    Intent intent = new Intent(null, resultData);
+                    setResult(RESULT_OK, intent);
+                    finish();
+                }
+                break;
+            }
+            default:
+                break;
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -139,97 +163,6 @@ public class FindFriendActivity extends AppCompatActivity {
         }
     }
 
-    //添加好友
-    private void addFriend(String phone,String icon) throws IOException {
-        SharedPreferences user = getSharedPreferences("user", 0);
-        final String _phone=phone;
-        if (user != null) {
-            user_phone = user.getString("user_phone", "默认值");
-            if (!user_phone.equals("默认值")) {
-                String urlstr = "http://58.87.100.195/CodeForum/addFriend.php";
-                String params = "phone=" + phone + "&" + "name=" + user_phone;
-                InputStream is = Utils.connect(urlstr, params);
-                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(is));//获得输入流
-                String line = "";
-                StringBuilder sb = new StringBuilder();
-                while (null != (line = bufferedReader.readLine())) {
-                    sb.append(line);
-                }
-                final String result = sb.toString();
-                /*new Thread(new Runnable() {
-                    @Override
-                    public void run() {*/
-                        try {
-                            JSONObject jsonObject = new JSONObject(result);
-                            final int resultstatus = jsonObject.getInt("status");
-                            if (resultstatus == 1) {
-                                if(user_phone!=null&&user_phone.length()>0) {
-                                    final String iconPath = getApplicationContext().getExternalFilesDir("") + "/" + user_phone + "/friend/" + _phone + "/userIcon";
-                                    File iconFile = new File(new File(iconPath), "image.jpg");
-                                    Utils.savePhoto(Utils.stringtoBitmap(icon), iconPath, "image");
-                                }
-                                Log.i("addFriend", "添加好友成功！");
-                                Uri data = null;
-                                Intent resultIntent = new Intent(null, data);
-                                setResult(RESULT_OK, resultIntent);
-                                finish();
-                                Looper.prepare();
-                                Toast.makeText(FindFriendActivity.this, "添加好友成功！", Toast.LENGTH_SHORT).show();
-                                Looper.loop();
-                                /*new Thread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        try{
-                                            _bitmap = getFile(_phone);
-                                        }catch(Exception e){
-                                            e.printStackTrace();
-                                        }
-                                        if(user_phone!=null&&user_phone.length()>0) {
-                                            final String iconPath = getApplicationContext().getExternalFilesDir("") + "/" + user_phone + "/friend/" + _phone + "/croppedImage";
-                                            File icon = new File(new File(iconPath), "image.jpg");
-                                            Utils.savePhoto(_bitmap, iconPath, "image");
-                                        }
-                                        Log.e("log_tag", "添加好友成功！");
-                                        Uri data = null;
-                                        Intent result = new Intent(null, data);
-                                        setResult(RESULT_OK, result);
-                                        finish();
-                                        Looper.prepare();
-                                        Toast.makeText(FindFriendActivity.this, "添加好友成功！", Toast.LENGTH_SHORT).show();
-                                        Looper.loop();
-                                    }
-                                }).start();*/
-                            } else if (resultstatus == -1) {
-                                Log.e("addFriend", "你已经添加过该好友！");
-                                Looper.prepare();
-                                Toast.makeText(FindFriendActivity.this, "你已经添加过该好友！", Toast.LENGTH_SHORT).show();
-                                Looper.loop();
-                            } else if (resultstatus == -2) {
-                                Log.e("addFriend", "你不能添加自己为好友！");
-                                Looper.prepare();
-                                Toast.makeText(FindFriendActivity.this, "你不能添加自己为好友！", Toast.LENGTH_SHORT).show();
-                                Looper.loop();
-                            }
-                        } catch (Exception e) {
-                            Log.e("log_tag", "the Error parsing data " + e.toString());
-                        }
-                    /*}
-                }).start();*/
-            }
-        }
-    }
-
-    private Bitmap getFile(String user_phone) throws IOException {
-        String urlstr = "http://58.87.100.195/CodeForum/getFile.php";
-        String params = "name=" + user_phone;
-        InputStream is = Utils.connect(urlstr, params);
-        if(!is.toString().contains("ChunkedSource")){
-            return BitmapFactory.decodeStream(is);
-        }else{
-            return null;
-        }
-    }
-
     private class FindFriendHandler extends Handler {
         @Override
         public void handleMessage(Message msg) {
@@ -290,16 +223,10 @@ public class FindFriendActivity extends AppCompatActivity {
                             notificationView[i].setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-                                    new Thread(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            try {
-                                                addFriend(_phone,thisIcon);
-                                            } catch (IOException e) {
-                                                Log.e("log_tag", "the Error parsing data " + e.toString());
-                                            }
-                                        }
-                                    }).start();
+                                    Intent intent = new Intent();
+                                    intent.setClass(FindFriendActivity.this, UserInfoActivity.class);
+                                    intent.putExtra("phone", _phone);
+                                    startActivityForResult(intent, userInfoActivity);
                                 }
                             });
                             listView.addView(notificationView[i]);
